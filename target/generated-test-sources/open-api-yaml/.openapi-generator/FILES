@@ -1,7 +1,0 @@
-.openapi-generator-ignore
-gen/org/tkit/onecx/welcome/client/api/ImagesInternalApi.java
-gen/org/tkit/onecx/welcome/client/model/ImageDataResponse.java
-gen/org/tkit/onecx/welcome/client/model/ImageInfo.java
-gen/org/tkit/onecx/welcome/client/model/ProblemDetailInvalidParam.java
-gen/org/tkit/onecx/welcome/client/model/ProblemDetailParam.java
-gen/org/tkit/onecx/welcome/client/model/ProblemDetailResponse.java

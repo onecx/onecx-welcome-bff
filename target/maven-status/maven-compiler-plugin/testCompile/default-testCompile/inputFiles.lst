@@ -1,9 +1,0 @@
-/home/jorden/projects/portal/onecx-welcome-bff/src/test/java/org/tkit/onecx/welcome/bff/rs/AbstractTest.java
-/home/jorden/projects/portal/onecx-welcome-bff/src/test/java/org/tkit/onecx/welcome/bff/rs/ImageRestControllerIT.java
-/home/jorden/projects/portal/onecx-welcome-bff/src/test/java/org/tkit/onecx/welcome/bff/rs/ImageRestControllerTest.java
-/home/jorden/projects/portal/onecx-welcome-bff/target/generated-test-sources/open-api-yaml/gen/org/tkit/onecx/welcome/client/api/ImagesInternalApi.java
-/home/jorden/projects/portal/onecx-welcome-bff/target/generated-test-sources/open-api-yaml/gen/org/tkit/onecx/welcome/client/model/ImageDataResponse.java
-/home/jorden/projects/portal/onecx-welcome-bff/target/generated-test-sources/open-api-yaml/gen/org/tkit/onecx/welcome/client/model/ImageInfo.java
-/home/jorden/projects/portal/onecx-welcome-bff/target/generated-test-sources/open-api-yaml/gen/org/tkit/onecx/welcome/client/model/ProblemDetailInvalidParam.java
-/home/jorden/projects/portal/onecx-welcome-bff/target/generated-test-sources/open-api-yaml/gen/org/tkit/onecx/welcome/client/model/ProblemDetailParam.java
-/home/jorden/projects/portal/onecx-welcome-bff/target/generated-test-sources/open-api-yaml/gen/org/tkit/onecx/welcome/client/model/ProblemDetailResponse.java
