@@ -100,6 +100,10 @@ paths:
       responses:
         "201":
           description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageInfo'
         "400":
           description: BAD REQUEST
           content:
@@ -124,6 +128,31 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ImageInfo'
+  /images/info/reorder:
+    post:
+      x-onecx:
+        permissions:
+          welcome:
+            - write
+      tags:
+        - imagesInternal
+      description: update order of Images
+      operationId: updateImageOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageInfoReorderRequest'
+      responses:
+        "200":
+          description: UPDATED
+        "400":
+          description: BAD REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailResponse'
   /images:
     post:
       x-onecx:
@@ -268,6 +297,13 @@ components:
           $ref: '#/components/schemas/OffsetDateTime'
         modificationUser:
           type: string
+    ImageInfoReorderRequest:
+      type: object
+      properties:
+        imageInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageInfo'
     OffsetDateTime:
       format: date-time
       type: string

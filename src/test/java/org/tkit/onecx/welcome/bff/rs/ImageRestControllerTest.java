@@ -25,6 +25,7 @@ import org.tkit.quarkus.log.cdi.LogService;
 
 import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ImageDataResponseDTO;
 import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ImageInfoDTO;
+import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ImageInfoReorderRequestDTO;
 import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ProblemDetailResponseDTO;
 import gen.org.tkit.onecx.welcome.client.model.ImageDataResponse;
 import gen.org.tkit.onecx.welcome.client.model.ImageInfo;
@@ -260,6 +261,76 @@ public class ImageRestControllerTest extends AbstractTest {
 
         assertThat(output).isNotNull();
         assertThat(output.getUrl()).isEqualTo(info.getUrl());
+    }
+
+    @Test
+    void updateOrderTest() {
+        ImageInfo info = new ImageInfo();
+        info.setUrl("someUrl");
+        info.setPosition("1");
+        info.setId("11-111");
+        ImageInfo info2 = new ImageInfo();
+        info2.setUrl("someUrl");
+        info2.setPosition("2");
+        info2.setId("22-222");
+
+        // create mock rest endpoint
+        mockServerClient.when(request().withPath("/internal/images/info/11-111").withMethod(HttpMethod.PUT)
+                .withContentType(MediaType.APPLICATION_JSON)
+                .withBody(JsonBody.json(info)))
+                .withId(mockId)
+                .respond(httpRequest -> response().withStatusCode(CREATED.getStatusCode())
+                        .withContentType(MediaType.APPLICATION_JSON)
+                        .withBody(JsonBody.json(info)));
+
+        // create mock rest endpoint
+        mockServerClient.when(request().withPath("/internal/images/info/22-222").withMethod(HttpMethod.PUT)
+                .withContentType(MediaType.APPLICATION_JSON)
+                .withBody(JsonBody.json(info2)))
+                .withId("mock2")
+                .respond(httpRequest -> response().withStatusCode(CREATED.getStatusCode())
+                        .withContentType(MediaType.APPLICATION_JSON)
+                        .withBody(JsonBody.json(info2)));
+
+        ImageInfoDTO infoDTO = new ImageInfoDTO();
+        infoDTO.setPosition("1");
+        infoDTO.setUrl("someUrl");
+        infoDTO.setId("11-111");
+
+        ImageInfoDTO info2DTO = new ImageInfoDTO();
+        info2DTO.setPosition("2");
+        info2DTO.setUrl("someUrl");
+        info2DTO.setId("22-222");
+
+        ImageInfoReorderRequestDTO reorderRequestDTO = new ImageInfoReorderRequestDTO();
+        reorderRequestDTO.setImageInfos(List.of(infoDTO, info2DTO));
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .body(reorderRequestDTO)
+                .contentType(APPLICATION_JSON)
+                .post("/info/reorder")
+                .then()
+                .statusCode(OK.getStatusCode());
+        mockServerClient.clear("mock2");
+    }
+
+    @Test
+    void updateOrderWithEmptyBodyTest() {
+        ImageInfoReorderRequestDTO reorderRequestDTO = new ImageInfoReorderRequestDTO();
+        reorderRequestDTO.setImageInfos(List.of());
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .body(reorderRequestDTO)
+                .contentType(APPLICATION_JSON)
+                .post("/info/reorder")
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
     }
 
     @Test

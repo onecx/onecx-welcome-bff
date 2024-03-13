@@ -18,9 +18,7 @@ import org.tkit.onecx.welcome.bff.rs.mappers.ImageMapper;
 import org.tkit.quarkus.log.cdi.LogService;
 
 import gen.org.tkit.onecx.welcome.bff.rs.internal.ImagesInternalApiService;
-import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ImageDataResponseDTO;
-import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ImageInfoDTO;
-import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ProblemDetailResponseDTO;
+import gen.org.tkit.onecx.welcome.bff.rs.internal.model.*;
 import gen.org.tkit.onecx.welcome.client.api.ImagesInternalApi;
 import gen.org.tkit.onecx.welcome.client.model.ImageDataResponse;
 import gen.org.tkit.onecx.welcome.client.model.ImageInfo;
@@ -100,6 +98,18 @@ public class ImagesRestController implements ImagesInternalApiService {
             ImageInfoDTO responseDTO = mapper.map(response.readEntity(ImageInfo.class));
             return Response.status(response.getStatus()).entity(responseDTO).build();
         }
+    }
+
+    @Override
+    public Response updateImageOrder(ImageInfoReorderRequestDTO imageInfoReorderRequestDTO) {
+        if (!imageInfoReorderRequestDTO.getImageInfos().isEmpty()) {
+            for (ImageInfoDTO imageInfoDTO : imageInfoReorderRequestDTO.getImageInfos()) {
+                try (Response response = welcomeClient.updateImageInfo(imageInfoDTO.getId(),
+                        mapper.map(imageInfoDTO))) {
+                }
+            }
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     @ServerExceptionMapper
