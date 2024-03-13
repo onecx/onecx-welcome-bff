@@ -104,10 +104,10 @@ public class ImagesRestController implements ImagesInternalApiService {
     public Response updateImageOrder(ImageInfoReorderRequestDTO imageInfoReorderRequestDTO) {
         if (!imageInfoReorderRequestDTO.getImageInfos().isEmpty()) {
             for (ImageInfoDTO imageInfoDTO : imageInfoReorderRequestDTO.getImageInfos()) {
-                try (Response response = welcomeClient.updateImageInfo(imageInfoDTO.getId(),
-                        mapper.map(imageInfoDTO))) {
-                }
+                welcomeClient.updateImageInfo(imageInfoDTO.getId(),
+                        mapper.map(imageInfoDTO)).close();
             }
+            return Response.status(Response.Status.OK).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
