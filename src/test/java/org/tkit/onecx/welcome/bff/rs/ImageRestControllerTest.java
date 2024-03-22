@@ -378,7 +378,7 @@ public class ImageRestControllerTest extends AbstractTest {
     @Test
     void testMaxUploadSize() {
 
-        byte[] body = new byte[110001];
+        byte[] body = new byte[1100001];
         new Random().nextBytes(body);
 
         var exception = given()
