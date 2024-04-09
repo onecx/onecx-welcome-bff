@@ -1,2 +1,2 @@
 # onecx-welcome-bff
-OneCX Welcome Management BFF
+OneCX Welcome BFF
