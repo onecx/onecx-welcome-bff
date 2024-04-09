@@ -2,9 +2,10 @@ apiVersion: v2
 name: onecx-welcome-bff
 version: 0.0.0
 appVersion: 0.0.0
-description: Onecx Welcome BFF
+description: OneCX Welcome BFF
 keywords:
   - welcome
+  - image
 sources:
   - https://github.com/onecx/onecx-welcome-bff
 maintainers:

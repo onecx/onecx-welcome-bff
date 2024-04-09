@@ -2,7 +2,7 @@
 openapi: 3.0.3
 info:
   title: onecx-welcome-bff
-  description: welcome bff
+  description: OneCX Welcome BFF
   version: 1.0.0
   contact:
     email: "tkit_dev@1000kit.org"
@@ -12,7 +12,7 @@ info:
 servers:
   - url: "http://onecx-welcome-bff:8080"
 tags:
-  - name: OneCX Welcome Bff
+  - name: OneCX Welcome BFF
 paths:
   /images/info/{id}:
     get:
@@ -72,7 +72,7 @@ paths:
             - delete
       tags:
         - imagesInternal
-      description: delete image information
+      description: delete Image information
       operationId: deleteImageInfoById
       parameters:
         - $ref: '#/components/parameters/id'
@@ -89,7 +89,7 @@ paths:
             - write
       tags:
         - imagesInternal
-      description: create image info
+      description: create image information
       operationId: createImageInfo
       requestBody:
         required: true
@@ -117,7 +117,7 @@ paths:
             - read
       tags:
         - imagesInternal
-      description: get all existing image-infos
+      description: get all existing Image informations
       operationId: getAllImageInfos
       responses:
         "200":
@@ -161,7 +161,7 @@ paths:
             - write
       tags:
         - imagesInternal
-      description: create image
+      description: create Image
       operationId: createImage
       parameters:
         - in: header
