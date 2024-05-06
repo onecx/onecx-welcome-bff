@@ -7,6 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -37,9 +38,12 @@ public class ImagesRestController implements ImagesInternalApiService {
     @Inject
     ExceptionMapper exceptionMapper;
 
+    @Inject
+    HttpHeaders headers;
+
     @Override
-    public Response createImage(Integer contentLength, byte[] body) {
-        try (Response response = welcomeClient.createImage(contentLength, body)) {
+    public Response createImage(byte[] body) {
+        try (Response response = welcomeClient.createImage(headers.getLength(), body)) {
             ImageDataResponseDTO responseDTO = mapper.map(response.readEntity(ImageDataResponse.class));
             return Response.status(response.getStatus()).entity(responseDTO).build();
         }
@@ -85,8 +89,8 @@ public class ImagesRestController implements ImagesInternalApiService {
     }
 
     @Override
-    public Response updateImageById(String id, Integer contentLength, byte[] body) {
-        try (Response response = welcomeClient.updateImageById(id, contentLength, body)) {
+    public Response updateImageById(String id, byte[] body) {
+        try (Response response = welcomeClient.updateImageById(id, headers.getLength(), body)) {
             ImageDataResponseDTO responseDTO = mapper.map(response.readEntity(ImageDataResponse.class));
             return Response.status(response.getStatus()).entity(responseDTO).build();
         }

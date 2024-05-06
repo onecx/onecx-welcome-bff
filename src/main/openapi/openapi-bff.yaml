@@ -163,14 +163,6 @@ paths:
         - imagesInternal
       description: create Image
       operationId: createImage
-      parameters:
-        - in: header
-          name: Content-Length
-          required: true
-          schema:
-            minimum: 1
-            maximum: 1100000
-            type: integer
       requestBody:
         content:
           image/*:
@@ -222,13 +214,6 @@ paths:
       operationId: updateImageById
       parameters:
         - $ref: '#/components/parameters/id'
-        - in: header
-          name: Content-Length
-          required: true
-          schema:
-            minimum: 1
-            maximum: 1100000
-            type: integer
       requestBody:
         content:
           image/*:

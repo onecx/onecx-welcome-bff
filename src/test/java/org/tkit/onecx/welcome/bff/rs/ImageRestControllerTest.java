@@ -29,6 +29,7 @@ import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ImageInfoReorderRequestD
 import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ProblemDetailResponseDTO;
 import gen.org.tkit.onecx.welcome.client.model.ImageDataResponse;
 import gen.org.tkit.onecx.welcome.client.model.ImageInfo;
+import gen.org.tkit.onecx.welcome.client.model.ProblemDetailResponse;
 import io.quarkiverse.mockserver.test.InjectMockServerClient;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -376,16 +377,25 @@ public class ImageRestControllerTest extends AbstractTest {
     }
 
     @Test
-    void testMaxUploadSize() {
+    void testMaxUploadSize() throws IOException {
 
-        byte[] body = new byte[1100001];
-        new Random().nextBytes(body);
+        ProblemDetailResponse error = new ProblemDetailResponse();
+        error.setDetail("createImage.contentLength: must be less than or equal to 1100000");
+
+        // create mock rest endpoint
+        mockServerClient.when(request().withPath("/internal/images").withMethod(HttpMethod.POST)
+                .withContentType(MediaType.ANY_IMAGE_TYPE)
+                .withBody(FileUtils.readFileToByteArray(FILE)))
+                .withId(mockId)
+                .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                        .withContentType(MediaType.APPLICATION_JSON)
+                        .withBody(JsonBody.json(error)));
 
         var exception = given()
                 .when()
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
-                .body(body)
+                .body(FILE)
                 .contentType(MEDIA_TYPE_IMAGE_PNG)
                 .post()
                 .then()
