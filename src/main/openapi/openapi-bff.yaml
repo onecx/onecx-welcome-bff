@@ -110,6 +110,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetailResponse'
+  /images/{workspaceName}/info:
     get:
       x-onecx:
         permissions:
@@ -117,8 +118,14 @@ paths:
             - read
       tags:
         - imagesInternal
-      description: get all existing Image informations
-      operationId: getAllImageInfos
+      description: get all existing Image informations by workspace name
+      operationId: getAllImageInfosByWorkspaceName
+      parameters:
+        - in: path
+          name: workspaceName
+          schema:
+            type: string
+          required: true
       responses:
         "200":
           description: OK
@@ -259,6 +266,8 @@ components:
         modificationUser:
           type: string
     ImageInfo:
+      required:
+        - workspaceName
       type: object
       properties:
         position:
@@ -281,6 +290,8 @@ components:
         modificationDate:
           $ref: '#/components/schemas/OffsetDateTime'
         modificationUser:
+          type: string
+        workspaceName:
           type: string
     ImageInfoReorderRequest:
       type: object

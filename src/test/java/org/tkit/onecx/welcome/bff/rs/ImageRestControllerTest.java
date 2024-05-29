@@ -149,6 +149,7 @@ public class ImageRestControllerTest extends AbstractTest {
         ImageInfo info = new ImageInfo();
         info.setUrl("someUrl");
         info.setPosition("1");
+        info.setWorkspaceName("w1");
 
         // create mock rest endpoint
         mockServerClient.when(request().withPath("/internal/images/info").withMethod(HttpMethod.POST)
@@ -162,6 +163,7 @@ public class ImageRestControllerTest extends AbstractTest {
         ImageInfoDTO infoDTO = new ImageInfoDTO();
         infoDTO.setPosition("1");
         infoDTO.setUrl("someUrl");
+        infoDTO.setWorkspaceName("w1");
 
         var output = given()
                 .when()
@@ -234,6 +236,7 @@ public class ImageRestControllerTest extends AbstractTest {
         ImageInfo info = new ImageInfo();
         info.setUrl("someUrl");
         info.setPosition("1");
+        info.setWorkspaceName("w1");
 
         // create mock rest endpoint
         mockServerClient.when(request().withPath("/internal/images/info/11-111").withMethod(HttpMethod.PUT)
@@ -247,6 +250,7 @@ public class ImageRestControllerTest extends AbstractTest {
         ImageInfoDTO infoDTO = new ImageInfoDTO();
         infoDTO.setPosition("1");
         infoDTO.setUrl("someUrl");
+        infoDTO.setWorkspaceName("w1");
 
         var output = given()
                 .when()
@@ -270,10 +274,12 @@ public class ImageRestControllerTest extends AbstractTest {
         info.setUrl("someUrl");
         info.setPosition("1");
         info.setId("11-111");
+        info.setWorkspaceName("w1");
         ImageInfo info2 = new ImageInfo();
         info2.setUrl("someUrl");
         info2.setPosition("2");
         info2.setId("22-222");
+        info2.setWorkspaceName("w1");
 
         // create mock rest endpoint
         mockServerClient.when(request().withPath("/internal/images/info/11-111").withMethod(HttpMethod.PUT)
@@ -297,11 +303,13 @@ public class ImageRestControllerTest extends AbstractTest {
         infoDTO.setPosition("1");
         infoDTO.setUrl("someUrl");
         infoDTO.setId("11-111");
+        infoDTO.setWorkspaceName("w1");
 
         ImageInfoDTO info2DTO = new ImageInfoDTO();
         info2DTO.setPosition("2");
         info2DTO.setUrl("someUrl");
         info2DTO.setId("22-222");
+        info2DTO.setWorkspaceName("w1");
 
         ImageInfoReorderRequestDTO reorderRequestDTO = new ImageInfoReorderRequestDTO();
         reorderRequestDTO.setImageInfos(List.of(infoDTO, info2DTO));
@@ -335,6 +343,21 @@ public class ImageRestControllerTest extends AbstractTest {
     }
 
     @Test
+    void updateOrderWithMissingBodyTest() {
+        ImageInfoReorderRequestDTO reorderRequestDTO = new ImageInfoReorderRequestDTO();
+        reorderRequestDTO.setImageInfos(List.of());
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .post("/info/reorder")
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
+    }
+
+    @Test
     void deleteImageInfoByIdTest() {
 
         // create mock rest endpoint
@@ -357,10 +380,11 @@ public class ImageRestControllerTest extends AbstractTest {
         List<ImageInfo> infos = new ArrayList<>();
         ImageInfo info = new ImageInfo();
         info.setImageId("111");
+        info.setWorkspaceName("w1");
         infos.add(info);
 
         // create mock rest endpoint
-        mockServerClient.when(request().withPath("/internal/images/info").withMethod(HttpMethod.GET))
+        mockServerClient.when(request().withPath("/internal/images/w1/info").withMethod(HttpMethod.GET))
                 .withId(mockId)
                 .respond(httpRequest -> response().withStatusCode(Response.Status.OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
@@ -368,7 +392,8 @@ public class ImageRestControllerTest extends AbstractTest {
         var output = given()
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
-                .get("/info")
+                .pathParam("workspaceName", "w1")
+                .get("/{workspaceName}/info")
                 .then()
                 .contentType(APPLICATION_JSON)
                 .extract().as(ImageInfoDTO[].class);

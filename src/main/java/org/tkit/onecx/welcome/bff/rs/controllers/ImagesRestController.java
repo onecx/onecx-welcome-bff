@@ -65,8 +65,8 @@ public class ImagesRestController implements ImagesInternalApiService {
     }
 
     @Override
-    public Response getAllImageInfos() {
-        try (Response response = welcomeClient.getAllImageInfos()) {
+    public Response getAllImageInfosByWorkspaceName(String workspaceName) {
+        try (Response response = welcomeClient.getAllImageInfosByWorkspaceName(workspaceName)) {
             List<ImageInfoDTO> infoList = mapper.map(Arrays.stream(response.readEntity(ImageInfo[].class)).toList());
             return Response.status(response.getStatus()).entity(infoList).build();
         }
