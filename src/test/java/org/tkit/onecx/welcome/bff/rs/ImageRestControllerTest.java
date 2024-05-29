@@ -343,6 +343,21 @@ public class ImageRestControllerTest extends AbstractTest {
     }
 
     @Test
+    void updateOrderWithMissingBodyTest() {
+        ImageInfoReorderRequestDTO reorderRequestDTO = new ImageInfoReorderRequestDTO();
+        reorderRequestDTO.setImageInfos(List.of());
+
+        given()
+                .when()
+                .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
+                .header(APM_HEADER_PARAM, ADMIN)
+                .contentType(APPLICATION_JSON)
+                .post("/info/reorder")
+                .then()
+                .statusCode(BAD_REQUEST.getStatusCode());
+    }
+
+    @Test
     void deleteImageInfoByIdTest() {
 
         // create mock rest endpoint
@@ -378,7 +393,7 @@ public class ImageRestControllerTest extends AbstractTest {
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
                 .pathParam("workspaceName", "w1")
-                .get("/{workspaceName/info")
+                .get("/{workspaceName}/info")
                 .then()
                 .contentType(APPLICATION_JSON)
                 .extract().as(ImageInfoDTO[].class);
