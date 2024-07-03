@@ -61,7 +61,7 @@ class AnnouncementsRestControllerTest extends AbstractTest {
                 .statusCode(OK.getStatusCode())
                 .extract().as(AnnouncementPageResultDTO.class);
 
-        Assertions.assertThat(data.getStream().size()).isEqualTo(response.getStream().size());
+        Assertions.assertThat(data.getStream()).hasSameSizeAs(response.getStream());
         Assertions.assertThat(data.getStream().get(0).getTitle()).isEqualTo(response.getStream().get(0).getTitle());
         Assertions.assertThat(data.getStream().get(0).getAppId()).isEqualTo(response.getStream().get(0).getAppId());
 
