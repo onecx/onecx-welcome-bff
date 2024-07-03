@@ -14,6 +14,7 @@
           "appId": "onecx-welcome-bff",
           "permissions": {
             "image": ["read", "write", "delete"],
+            "announcement": ["read"],
             "permissions": ["admin-write","admin-read"]
           }
         },
@@ -36,6 +37,7 @@
           "appId": "onecx-welcome-bff",
           "permissions": {
             "image": ["read"],
+            "announcement": ["read"],
             "permissions": ["admin-write","admin-read"]
           }
         },
