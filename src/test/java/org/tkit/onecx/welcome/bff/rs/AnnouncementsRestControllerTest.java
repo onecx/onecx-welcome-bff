@@ -40,7 +40,7 @@ class AnnouncementsRestControllerTest extends AbstractTest {
 
         AnnouncementSearchCriteriaV1 criteriaV1 = new AnnouncementSearchCriteriaV1();
         AnnouncementPageResultV1 response = new AnnouncementPageResultV1();
-        response.number(1).size(1).stream(List.of(new AnnouncementV1().title("a1").appId("app1").content("content")));
+        response.number(1).size(1).stream(List.of(new AnnouncementV1().title("a1").productName("product1").content("content")));
 
         // create mock rest endpoint
         mockServerClient.when(request().withPath("/v1/applications/announcements/search").withMethod(HttpMethod.POST)
@@ -63,7 +63,7 @@ class AnnouncementsRestControllerTest extends AbstractTest {
 
         Assertions.assertThat(data.getStream()).hasSameSizeAs(response.getStream());
         Assertions.assertThat(data.getStream().get(0).getTitle()).isEqualTo(response.getStream().get(0).getTitle());
-        Assertions.assertThat(data.getStream().get(0).getAppId()).isEqualTo(response.getStream().get(0).getAppId());
+        Assertions.assertThat(data.getStream().get(0).getProductName()).isEqualTo(response.getStream().get(0).getProductName());
 
         mockServerClient.clear("mock");
     }
