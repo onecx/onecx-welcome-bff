@@ -37,7 +37,7 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 @LogService
 @TestHTTPEndpoint(ImagesRestController.class)
-public class ImageRestControllerTest extends AbstractTest {
+class ImageRestControllerTest extends AbstractTest {
     @InjectMockServerClient
     MockServerClient mockServerClient;
 
@@ -46,12 +46,12 @@ public class ImageRestControllerTest extends AbstractTest {
     private static final File FILE = new File(
             Objects.requireNonNull(ImagesRestController.class.getResource("/images/Testimage.jpg")).getFile());
 
-    static final String mockId = "MOCK";
+    static final String MOCK_ID = "MOCK";
 
     @BeforeEach
     void resetExpectation() {
         try {
-            mockServerClient.clear(mockId);
+            mockServerClient.clear(MOCK_ID);
         } catch (Exception ex) {
             //  mockId not existing
         }
@@ -67,7 +67,7 @@ public class ImageRestControllerTest extends AbstractTest {
 
         // create mock rest endpoint
         mockServerClient.when(request().withPath("/internal/images/" + "d-11-111").withMethod(HttpMethod.GET))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(Response.Status.OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(response)));
@@ -93,7 +93,7 @@ public class ImageRestControllerTest extends AbstractTest {
 
         // create mock rest endpoint
         mockServerClient.when(request().withPath("/internal/images/info/" + "11-111").withMethod(HttpMethod.GET))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(Response.Status.OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(response)));
@@ -124,7 +124,7 @@ public class ImageRestControllerTest extends AbstractTest {
         mockServerClient.when(request().withPath("/internal/images").withMethod(HttpMethod.POST)
                 .withContentType(MediaType.ANY_IMAGE_TYPE)
                 .withBody(FileUtils.readFileToByteArray(FILE)))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(Response.Status.OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(response)));
@@ -155,7 +155,7 @@ public class ImageRestControllerTest extends AbstractTest {
         mockServerClient.when(request().withPath("/internal/images/info").withMethod(HttpMethod.POST)
                 .withContentType(MediaType.APPLICATION_JSON)
                 .withBody(JsonBody.json(info)))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(CREATED.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(info)));
@@ -190,7 +190,7 @@ public class ImageRestControllerTest extends AbstractTest {
         mockServerClient.when(request().withPath("/internal/images/d-11-111").withMethod(HttpMethod.PUT)
                 .withContentType(MediaType.ANY_IMAGE_TYPE)
                 .withBody(FileUtils.readFileToByteArray(FILE)))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(Response.Status.OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(response)));
@@ -215,7 +215,7 @@ public class ImageRestControllerTest extends AbstractTest {
         mockServerClient.when(request().withPath("/internal/images/abc").withMethod(HttpMethod.PUT)
                 .withContentType(MediaType.ANY_IMAGE_TYPE)
                 .withBody(FileUtils.readFileToByteArray(FILE)))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(NOT_FOUND.getStatusCode()));
 
         //update not-existing image
@@ -242,7 +242,7 @@ public class ImageRestControllerTest extends AbstractTest {
         mockServerClient.when(request().withPath("/internal/images/info/11-111").withMethod(HttpMethod.PUT)
                 .withContentType(MediaType.APPLICATION_JSON)
                 .withBody(JsonBody.json(info)))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(CREATED.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(info)));
@@ -285,7 +285,7 @@ public class ImageRestControllerTest extends AbstractTest {
         mockServerClient.when(request().withPath("/internal/images/info/11-111").withMethod(HttpMethod.PUT)
                 .withContentType(MediaType.APPLICATION_JSON)
                 .withBody(JsonBody.json(info)))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(CREATED.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(info)));
@@ -362,7 +362,7 @@ public class ImageRestControllerTest extends AbstractTest {
 
         // create mock rest endpoint
         mockServerClient.when(request().withPath("/internal/images/info/" + "11-111").withMethod(HttpMethod.DELETE))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(NO_CONTENT.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON));
 
@@ -385,7 +385,7 @@ public class ImageRestControllerTest extends AbstractTest {
 
         // create mock rest endpoint
         mockServerClient.when(request().withPath("/internal/images/w1/info").withMethod(HttpMethod.GET))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(Response.Status.OK.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(infos)));
@@ -411,7 +411,7 @@ public class ImageRestControllerTest extends AbstractTest {
         mockServerClient.when(request().withPath("/internal/images").withMethod(HttpMethod.POST)
                 .withContentType(MediaType.ANY_IMAGE_TYPE)
                 .withBody(FileUtils.readFileToByteArray(FILE)))
-                .withId(mockId)
+                .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
                         .withContentType(MediaType.APPLICATION_JSON)
                         .withBody(JsonBody.json(error)));
