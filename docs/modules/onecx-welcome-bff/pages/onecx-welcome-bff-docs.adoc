@@ -22,6 +22,7 @@ quarkus.http.filter.imageInfo.order=11
 quarkus.http.filter.imageInfo.header."Cache-Control"=none
 quarkus.http.filter.imageInfo.matches=/info*
 %prod.quarkus.rest-client.onecx_welcome_internal.url=http://onecx-welcome-svc:8080
+quarkus.openapi-generator.codegen.input-base-dir=target/tmp/openapi
 quarkus.openapi-generator.codegen.spec.onecx_welcome_internal_yaml.config-key=onecx_welcome_internal
 quarkus.openapi-generator.codegen.spec.onecx_welcome_internal_yaml.base-package=gen.org.tkit.onecx.welcome.client
 quarkus.openapi-generator.codegen.spec.onecx_welcome_internal_yaml.return-response=true
@@ -74,7 +75,7 @@ app:
             defaultClientScopes: [ ocx-wc:all, ocx-pm:read, ocx-an:read ]
 ----
 
-.rest-client.onecx_welcome_internal.providers=io.quarkus.oidc.client.reactive.filter.OidcClientRequestReactiveFilter
+.reactive.filter.OidcClientRequestReactiveFilter
 %prod.quarkus.rest-client.onecx_announcement_v1.providers=io.quarkus.oidc.client.reactive.filter.OidcClientRequestReactiveFilter
 %prod.quarkus.oidc-client.client-id=${quarkus.application.name}
 ----
