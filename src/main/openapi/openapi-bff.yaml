@@ -274,6 +274,12 @@ components:
           type: string
         visible:
           type: boolean
+        objectFit:
+          $ref: '#/components/schemas/ObjectFit'
+        objectPosition:
+          type: string
+        backgroundColor:
+          type: string
         url:
           type: string
         imageId:
@@ -293,6 +299,9 @@ components:
           type: string
         workspaceName:
           type: string
+    ObjectFit:
+      type: string
+      enum: [ none, contain, cover, fill, scale-down ]
     ImageInfoReorderRequest:
       type: object
       properties:
