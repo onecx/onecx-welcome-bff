@@ -6,9 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ValueMapping;
 import org.tkit.quarkus.rs.mappers.OffsetDateTimeMapper;
 
-import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ImageDataResponseDTO;
-import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ImageInfoDTO;
-import gen.org.tkit.onecx.welcome.bff.rs.internal.model.ObjectFitDTO;
+import gen.org.tkit.onecx.welcome.bff.rs.internal.model.*;
 import gen.org.tkit.onecx.welcome.client.model.ImageDataResponse;
 import gen.org.tkit.onecx.welcome.client.model.ImageInfo;
 

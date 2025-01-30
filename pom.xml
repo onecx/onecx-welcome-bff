@@ -187,6 +187,21 @@
                             <skipCache>true</skipCache>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>welcome-svc-exim-v1</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>
+                                https://raw.githubusercontent.com/onecx/onecx-welcome-svc/main/src/main/openapi/onecx-welcome-exim-v1-openapi.yaml
+                            </url>
+                            <outputDirectory>target/tmp/openapi</outputDirectory>
+                            <outputFileName>onecx-welcome-exim-v1.yaml</outputFileName>
+                            <skipCache>true</skipCache>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
