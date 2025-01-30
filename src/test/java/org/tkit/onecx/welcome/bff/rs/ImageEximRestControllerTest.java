@@ -31,7 +31,7 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 @LogService
 @TestHTTPEndpoint(ImageEximRestController.class)
-public class ImageEximRestControllerTest extends AbstractTest {
+class ImageEximRestControllerTest extends AbstractTest {
 
     @InjectMockServerClient
     MockServerClient mockServerClient;
