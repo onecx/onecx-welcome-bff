@@ -57,7 +57,9 @@ class ImageEximRestControllerTest extends AbstractTest {
         List<EximImage> snapshotImages = new ArrayList<>();
         EximImage img1 = new EximImage().image(new ImageInfo().visible(true)).imageData(new ImageData().imageData(MOCK_BYTES));
         snapshotImages.add(img1);
-        response.setImages(snapshotImages);
+        WelcomeConfig config = new WelcomeConfig();
+        config.setImages(snapshotImages);
+        response.setConfig(config);
         response.setId("id1");
 
         // create mock rest endpoint
@@ -79,7 +81,7 @@ class ImageEximRestControllerTest extends AbstractTest {
                 .extract().as(WelcomeSnapshotDTO.class);
 
         assertThat(data).isNotNull();
-        assertThat(data.getImages()).hasSize(1);
+        assertThat(data.getConfig().getImages()).hasSize(1);
     }
 
     @Test
@@ -89,7 +91,9 @@ class ImageEximRestControllerTest extends AbstractTest {
         List<EximImage> snapshotImages = new ArrayList<>();
         EximImage img1 = new EximImage().image(new ImageInfo().visible(true)).imageData(new ImageData().imageData(MOCK_BYTES));
         snapshotImages.add(img1);
-        request.setImages(snapshotImages);
+        WelcomeConfig config = new WelcomeConfig();
+        config.setImages(snapshotImages);
+        request.setConfig(config);
         request.setId("id11111111111111111");
 
         // create mock rest endpoint
@@ -100,10 +104,12 @@ class ImageEximRestControllerTest extends AbstractTest {
 
         WelcomeSnapshotDTO requestDTO = new WelcomeSnapshotDTO();
         List<EximImageDTO> snapshotImagesDTO = new ArrayList<>();
-        EximImageDTO img1DTO = new EximImageDTO().image(new ImageInfoDTO().visible(true).workspaceName("w1"))
-                .imageData(new ImageDataResponseDTO().imageData(MOCK_BYTES));
+        EximImageDTO img1DTO = new EximImageDTO().image(new EximImageInfoDTO().visible(true))
+                .imageData(new EximImageDataDTO().imageData(MOCK_BYTES));
         snapshotImagesDTO.add(img1DTO);
-        requestDTO.setImages(snapshotImagesDTO);
+        WelcomeConfigDTO configDTO = new WelcomeConfigDTO();
+        configDTO.setImages(snapshotImagesDTO);
+        requestDTO.setConfig(configDTO);
         requestDTO.setId("id11111111111111111");
 
         given()

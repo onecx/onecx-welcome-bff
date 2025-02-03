@@ -1,25 +1,41 @@
 package org.tkit.onecx.welcome.bff.rs.mappers;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ValueMapping;
+import java.util.Comparator;
+
+import org.mapstruct.*;
 import org.tkit.quarkus.rs.mappers.OffsetDateTimeMapper;
 
 import gen.org.tkit.onecx.welcome.bff.rs.internal.model.*;
-import gen.org.tkit.onecx.welcome.exim.client.model.ExportWelcomeRequest;
-import gen.org.tkit.onecx.welcome.exim.client.model.ImageData;
-import gen.org.tkit.onecx.welcome.exim.client.model.ImageInfo;
-import gen.org.tkit.onecx.welcome.exim.client.model.WelcomeSnapshot;
+import gen.org.tkit.onecx.welcome.exim.client.model.*;
 
 @Mapper(uses = { OffsetDateTimeMapper.class })
 public interface ImageEximMapper {
 
-    @Mapping(target = "removeImagesItem", ignore = true)
     WelcomeSnapshotDTO mapSnapshot(WelcomeSnapshot welcomeSnapshot);
 
     WelcomeSnapshot mapSnapshotDTO(WelcomeSnapshotDTO welcomeSnapshotDTO);
 
+    @Mapping(target = "removeImagesItem", ignore = true)
+    WelcomeConfigDTO map(WelcomeConfig config);
+
+    WelcomeConfig map(WelcomeConfigDTO configDTO);
+
+    EximImageDTO map(EximImage eximImage);
+
+    @AfterMapping
+    default void sortAfterMap(@MappingTarget WelcomeConfigDTO configDTO) {
+        configDTO.getImages().sort(Comparator.comparingInt(image -> Integer.parseInt(image.getImage().getPosition())));
+    }
+
+    EximImage map(EximImageDTO eximImageDTO);
+
     ExportWelcomeRequest mapExport(ExportWelcomeRequestDTO exportWelcomeRequestDTO);
+
+    @Mapping(target = "imageId", ignore = true)
+    ImageInfo map(EximImageInfoDTO eximImageInfoDTO);
+
+    @Mapping(target = "imageId", ignore = true)
+    ImageData map(EximImageDataDTO eximImageDataDTO);
 
     @ValueMapping(target = "SCALE_DOWN", source = "SCALE_MINUS_DOWN")
     ObjectFitDTO map(ImageInfo.ObjectFitEnum objectFitEnum);
