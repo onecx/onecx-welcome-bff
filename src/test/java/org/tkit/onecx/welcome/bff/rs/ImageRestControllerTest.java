@@ -430,5 +430,4 @@ class ImageRestControllerTest extends AbstractTest {
         assertThat(exception.getDetail()).isEqualTo(
                 "createImage.contentLength: must be less than or equal to 1100000");
     }
-
 }
