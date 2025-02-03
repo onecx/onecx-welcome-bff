@@ -195,7 +195,8 @@
                         </goals>
                         <configuration>
                             <url>
-                                https://raw.githubusercontent.com/JordenReuter/onecx-welcome-svc/refs/heads/feature/extend-exim/src/main/openapi/onecx-welcome-exim-v1-openapi.yaml                            </url>
+                                https://raw.githubusercontent.com/onecx/onecx-welcome-svc/refs/heads/main/src/main/openapi/onecx-welcome-exim-v1-openapi.yaml
+                            </url>
                             <outputDirectory>target/tmp/openapi</outputDirectory>
                             <outputFileName>onecx-welcome-exim-v1.yaml</outputFileName>
                             <skipCache>true</skipCache>
