@@ -29,11 +29,7 @@ public class ImageLog implements LogParam {
                                 ",img: " + ((ImageInfoDTO) x).getImageId() +
                                 " ]"),
                 this.item(10, ImageInfoReorderRequestDTO.class, x -> {
-                    var size = 0;
-                    List<ImageInfoDTO> tmp = ((ImageInfoReorderRequestDTO) x).getImageInfos();
-                    if (tmp != null) {
-                        size = tmp.size();
-                    }
+                    var size = ((ImageInfoReorderRequestDTO) x).getImageInfos().size();
                     return "ImageInfoReorderRequestDTO[ size: " + size + " ]";
                 }));
     }
