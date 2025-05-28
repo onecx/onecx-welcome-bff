@@ -38,7 +38,7 @@ quarkus.openapi-generator.codegen.spec.onecx_welcome_exim_v1_yaml.type-mappings.
 quarkus.openapi-generator.codegen.spec.onecx_welcome_exim_v1_yaml.additional-model-type-annotations=@io.quarkus.runtime.annotations.RegisterForReflection;
 quarkus.openapi-generator.codegen.spec.onecx_welcome_exim_v1_yaml.enable-security-generation=false
 %prod.quarkus.rest-client.onecx_welcome_internal.providers=io.quarkus.oidc.client.reactive.filter.OidcClientRequestReactiveFilter
-%prod.quarkus.oidc-client.client-id=${quarkus.application.name}
+%prod.quarkus.oidc-client.client-id=${ONECX_OIDC_CLIENT_CLIENT_ID:${quarkus.application.name}}
 ----
 ====
 
@@ -62,6 +62,8 @@ Default values
 ----
 app:
   name: bff
+  template:
+    oidc_client_id: "ONECX_OIDC_CLIENT_CLIENT_ID"
   image:
     repository: "onecx/onecx-welcome-bff"
   operator:
@@ -86,11 +88,6 @@ app:
         name: OneCX Welcome BFF
 ----
 
-ak:
-      client:
-        enabled: true
-        spec:
-          kcConfig:
-            defaultClientScopes: [ ocx-wc:all, ocx-pm:read, ocx-an:read ]
+ClientScopes: [ ocx-wc:all, ocx-pm:read, ocx-an:read ]
 ----
 
