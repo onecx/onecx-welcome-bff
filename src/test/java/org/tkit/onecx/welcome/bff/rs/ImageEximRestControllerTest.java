@@ -142,6 +142,7 @@ class ImageEximRestControllerTest extends AbstractTest {
                 .withBody(JsonBody.json(new ExportWelcomeRequest().workspaceName("w1"))))
                 .withId(MOCK_ID)
                 .respond(httpRequest -> response().withStatusCode(BAD_REQUEST.getStatusCode())
+                        .withBody(JsonBody.json(new EximProblemDetailResponse().detail("test")))
                         .withContentType(MediaType.APPLICATION_JSON));
         given()
                 .contentType(APPLICATION_JSON)
