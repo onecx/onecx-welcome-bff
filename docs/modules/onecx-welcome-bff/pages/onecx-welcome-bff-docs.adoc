@@ -86,10 +86,3 @@ app:
         name: OneCX Welcome BFF
 ----
 
-       description: OneCX Welcome Backend For Frontend
-        name: OneCX Welcome BFF
-----
-
-ClientScopes: [ ocx-wc:all, ocx-pm:read, ocx-an:read ]
-----
-
