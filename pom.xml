@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>onecx-welcome-bff</artifactId>
+    <name>OneCX Welcome Backend For Frontend</name>
     <version>999-SNAPSHOT</version>
 
     <dependencies>
