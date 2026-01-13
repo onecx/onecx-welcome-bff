@@ -1,8 +1,7 @@
 include::onecx-welcome-bff-attributes.adoc[opts=optional]
 
-== onecx-welcome-bff
+= OneCX Welcome Backend For Frontend
 
-include::docs.adoc[opts=optional]
 
 
 include::onecx-welcome-bff-docs.adoc[opts=optional]
