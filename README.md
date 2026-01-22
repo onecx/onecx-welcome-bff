@@ -1,2 +1,2 @@
 # onecx-welcome-bff
-OneCX Welcome BFF
+OneCX Welcome Backend-For-Frontend
