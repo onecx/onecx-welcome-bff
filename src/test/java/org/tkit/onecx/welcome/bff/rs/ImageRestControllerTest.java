@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.model.JsonBody;
 import org.mockserver.model.MediaType;
-import org.testcontainers.shaded.org.apache.commons.io.FileUtils;
 import org.tkit.onecx.welcome.bff.rs.controllers.ImagesRestController;
 import org.tkit.quarkus.log.cdi.LogService;
 
@@ -33,6 +32,7 @@ import gen.org.tkit.onecx.welcome.client.model.ProblemDetailResponse;
 import io.quarkiverse.mockserver.test.InjectMockServerClient;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import shaded_package.org.apache.commons.io.FileUtils;
 
 @QuarkusTest
 @LogService
@@ -52,7 +52,7 @@ class ImageRestControllerTest extends AbstractTest {
     void resetExpectation() {
         try {
             mockServerClient.clear(MOCK_ID);
-        } catch (Exception ex) {
+        } catch (Exception _) {
             //  mockId not existing
         }
     }
