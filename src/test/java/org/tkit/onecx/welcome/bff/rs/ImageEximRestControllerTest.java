@@ -75,7 +75,7 @@ class ImageEximRestControllerTest extends AbstractTest {
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
                 .body(new ExportWelcomeRequestDTO().workspaceName("w1"))
-                .post("/export")
+                .post("/images/export")
                 .then()
                 .statusCode(OK.getStatusCode())
                 .extract().as(WelcomeSnapshotDTO.class);
@@ -118,7 +118,7 @@ class ImageEximRestControllerTest extends AbstractTest {
                 .header(APM_HEADER_PARAM, ADMIN)
                 .body(requestDTO)
                 .pathParam("workspaceName", "w2")
-                .post("/{workspaceName}/import")
+                .post("/images/{workspaceName}/import")
                 .then()
                 .statusCode(OK.getStatusCode());
     }
@@ -130,7 +130,7 @@ class ImageEximRestControllerTest extends AbstractTest {
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
                 .pathParam("workspaceName", "w2")
-                .post("/{workspaceName}/import")
+                .post("/images/{workspaceName}/import")
                 .then()
                 .statusCode(BAD_REQUEST.getStatusCode());
     }
@@ -149,7 +149,7 @@ class ImageEximRestControllerTest extends AbstractTest {
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
                 .body(new ExportWelcomeRequestDTO().workspaceName("w1"))
-                .post("/export")
+                .post("/images/export")
                 .then()
                 .statusCode(BAD_REQUEST.getStatusCode());
     }

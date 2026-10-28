@@ -77,7 +77,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
                 .pathParam("id", "d-11-111")
-                .get("/{id}")
+                .get("/images/{id}")
                 .then()
                 .statusCode(OK.getStatusCode())
                 .extract().as(ImageDataResponseDTO.class);
@@ -102,7 +102,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
                 .pathParam("id", "11-111")
-                .get("/info/{id}")
+                .get("/images/info/{id}")
                 .then()
                 .statusCode(OK.getStatusCode())
                 .extract().as(ImageInfoDTO.class);
@@ -135,7 +135,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .header(APM_HEADER_PARAM, ADMIN)
                 .body(FILE)
                 .contentType(MEDIA_TYPE_IMAGE_PNG)
-                .post()
+                .post("/images")
                 .then()
                 .statusCode(OK.getStatusCode())
                 .extract()
@@ -171,7 +171,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .header(APM_HEADER_PARAM, ADMIN)
                 .body(infoDTO)
                 .contentType(APPLICATION_JSON)
-                .post("/info")
+                .post("/images/info")
                 .then()
                 .statusCode(CREATED.getStatusCode())
                 .extract().as(ImageInfoDTO.class);
@@ -202,7 +202,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .body(FILE)
                 .contentType(MEDIA_TYPE_IMAGE_PNG)
                 .pathParam("id", "d-11-111")
-                .put("{id}")
+                .put("/images/{id}")
                 .then()
                 .statusCode(OK.getStatusCode())
                 .extract()
@@ -226,7 +226,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .body(FILE)
                 .contentType(MEDIA_TYPE_IMAGE_PNG)
                 .pathParam("id", "not-existing")
-                .put("/{id}")
+                .put("/images/{id}")
                 .then()
                 .statusCode(NOT_FOUND.getStatusCode());
     }
@@ -259,7 +259,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .body(infoDTO)
                 .contentType(APPLICATION_JSON)
                 .pathParam("id", "11-111")
-                .put("/info/{id}")
+                .put("/images/info/{id}")
                 .then()
                 .statusCode(CREATED.getStatusCode())
                 .extract().as(ImageInfoDTO.class);
@@ -320,7 +320,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .header(APM_HEADER_PARAM, ADMIN)
                 .body(reorderRequestDTO)
                 .contentType(APPLICATION_JSON)
-                .post("/info/reorder")
+                .post("/images/info/reorder")
                 .then()
                 .statusCode(OK.getStatusCode());
         mockServerClient.clear("mock2");
@@ -337,7 +337,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .header(APM_HEADER_PARAM, ADMIN)
                 .body(reorderRequestDTO)
                 .contentType(APPLICATION_JSON)
-                .post("/info/reorder")
+                .post("/images/info/reorder")
                 .then()
                 .statusCode(BAD_REQUEST.getStatusCode());
     }
@@ -352,7 +352,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
                 .contentType(APPLICATION_JSON)
-                .post("/info/reorder")
+                .post("/images/info/reorder")
                 .then()
                 .statusCode(BAD_REQUEST.getStatusCode());
     }
@@ -370,7 +370,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .pathParam("id", "11-111")
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
-                .delete("/info/{id}")
+                .delete("/images/info/{id}")
                 .then()
                 .statusCode(NO_CONTENT.getStatusCode());
     }
@@ -393,7 +393,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .auth().oauth2(keycloakClient.getAccessToken(ADMIN))
                 .header(APM_HEADER_PARAM, ADMIN)
                 .pathParam("workspaceName", "w1")
-                .get("/{workspaceName}/info")
+                .get("/images/{workspaceName}/info")
                 .then()
                 .contentType(APPLICATION_JSON)
                 .extract().as(ImageInfoDTO[].class);
@@ -422,7 +422,7 @@ class ImageRestControllerTest extends AbstractTest {
                 .header(APM_HEADER_PARAM, ADMIN)
                 .body(FILE)
                 .contentType(MEDIA_TYPE_IMAGE_PNG)
-                .post()
+                .post("/images")
                 .then()
                 .statusCode(BAD_REQUEST.getStatusCode())
                 .extract().as(ProblemDetailResponseDTO.class);
